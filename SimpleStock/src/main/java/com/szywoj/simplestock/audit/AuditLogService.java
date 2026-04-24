@@ -17,14 +17,17 @@ public class AuditLogService {
 
         List<AuditLogDTO> logs = repository.findAllByOrderByCreatedAtAsc()
                 .stream()
-                .map(a -> AuditLogDTO.builder()
-                        .type(a.getType())
-                        .walletId(a.getWalletId())
-                        .stockName(a.getStockName())
-                        .build()
-                )
+                .map(this::buildAuditLogDTO)
                 .toList();
 
         return new AuditLogListDTO(logs);
+    }
+
+    private AuditLogDTO buildAuditLogDTO(AuditLog auditLog) {
+        return AuditLogDTO.builder()
+                .type(auditLog.getType())
+                .walletId(auditLog.getWalletId())
+                .stockName(auditLog.getStockName())
+                .build();
     }
 }
