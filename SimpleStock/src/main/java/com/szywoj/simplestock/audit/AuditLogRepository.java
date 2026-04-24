@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface AuditLogRepository extends JpaRepository<AuditLog, Long> {
 
-    List<AuditLog> findAllByOrderByIdAsc();
+    List<AuditLog> findAllByOrderByCreatedAtAsc();
+
 }

@@ -14,14 +14,16 @@ public class AuditLogService {
     private final AuditLogRepository repository;
 
     public AuditLogListDTO getLog() {
-        List<AuditLogDTO> logs = repository.findAllByOrderByIdAsc()
-        .stream()
-        .map(a -> new AuditLogDTO(
-                a.getType(),
-                a.getWalletId(),
-                a.getStockName()
-        ))
-        .toList();
+
+        List<AuditLogDTO> logs = repository.findAllByOrderByCreatedAtAsc()
+                .stream()
+                .map(a -> AuditLogDTO.builder()
+                        .type(a.getType())
+                        .walletId(a.getWalletId())
+                        .stockName(a.getStockName())
+                        .build()
+                )
+                .toList();
 
         return new AuditLogListDTO(logs);
     }
