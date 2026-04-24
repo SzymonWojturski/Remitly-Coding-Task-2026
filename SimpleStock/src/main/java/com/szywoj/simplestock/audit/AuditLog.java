@@ -1,9 +1,11 @@
 package com.szywoj.simplestock.audit;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 @Entity
 @Table(name = "audit_log")
+@Getter
 public class AuditLog {
 
     @Id
@@ -25,9 +27,4 @@ public class AuditLog {
         this.walletId = walletId;
         this.stockName = stockName;
     }
-
-    public Long getId() { return id; }
-    public String getType() { return type; }
-    public String getWalletId() { return walletId; }
-    public String getStockName() { return stockName; }
 }
