@@ -1,7 +1,7 @@
 package com.szywoj.simplestock.audit;
 
 import com.szywoj.simplestock.audit.dto.AuditLogDTO;
-import com.szywoj.simplestock.audit.dto.AuditLogListDTO;
+import com.szywoj.simplestock.audit.dto.AuditLogListResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,14 +13,14 @@ public class AuditLogService {
 
     private final AuditLogRepository repository;
 
-    public AuditLogListDTO getLog() {
+    public AuditLogListResponse getLog() {
 
         List<AuditLogDTO> logs = repository.findAllByOrderByCreatedAtAsc()
                 .stream()
                 .map(this::buildAuditLogDTO)
                 .toList();
 
-        return new AuditLogListDTO(logs);
+        return new AuditLogListResponse(logs);
     }
 
     private AuditLogDTO buildAuditLogDTO(AuditLog auditLog) {
@@ -30,4 +30,5 @@ public class AuditLogService {
                 .stockName(auditLog.getStockName())
                 .build();
     }
+
 }

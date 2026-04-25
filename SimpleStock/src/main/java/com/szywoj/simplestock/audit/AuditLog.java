@@ -1,36 +1,35 @@
 package com.szywoj.simplestock.audit;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 
 @Entity
 @Table(name = "audit_log")
 @Getter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class AuditLog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
-    private String type;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type", nullable = false)
+    private OperationType type;
 
-    @Column(name = "wallet_id")
+    @Column(name = "wallet_id", nullable = false)
     private String walletId;
 
-    @Column(name = "stock_name")
+    @Column(name = "stock_name", nullable = false)
     private String stockName;
-
-    public AuditLog() {
-    }
-
-    public AuditLog(String type, String walletId, String stockName) {
-        this.type = type;
-        this.walletId = walletId;
-        this.stockName = stockName;
-    }
 }

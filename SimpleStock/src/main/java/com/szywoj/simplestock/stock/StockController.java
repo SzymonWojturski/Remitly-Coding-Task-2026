@@ -1,4 +1,4 @@
-package com.szywoj.simplestock.bank;
+package com.szywoj.simplestock.stock;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
