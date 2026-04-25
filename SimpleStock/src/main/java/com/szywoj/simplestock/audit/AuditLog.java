@@ -1,19 +1,15 @@
 package com.szywoj.simplestock.audit;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 
 @Entity
 @Table(name = "audit_log")
-@Getter
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class AuditLog {
 
     @Id

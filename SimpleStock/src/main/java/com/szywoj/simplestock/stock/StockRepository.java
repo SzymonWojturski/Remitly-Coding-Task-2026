@@ -1,4 +1,6 @@
 package com.szywoj.simplestock.stock;
 
-public class BankRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface StockRepository extends JpaRepository<Stock, String> {
 }

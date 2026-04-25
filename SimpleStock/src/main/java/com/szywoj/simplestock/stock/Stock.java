@@ -1,16 +1,13 @@
-package com.szywoj.simplestock.bank;
+package com.szywoj.simplestock.stock;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "stocks")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
-public class Bank {
+public class Stock {
 
     @Id
     private String name;

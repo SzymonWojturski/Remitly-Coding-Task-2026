@@ -19,7 +19,7 @@ CREATE TABLE wallet_stocks (
 
 CREATE TABLE audit_log (
     id BIGSERIAL PRIMARY KEY,
-    type VARCHAR(10) NOT NULL CHECK (type IN ('buy', 'sell')),
+    type VARCHAR(10) NOT NULL CHECK (type IN ('BUY', 'SELL')),
     wallet_id VARCHAR(255) NOT NULL,
     stock_name VARCHAR(255) NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT NOW()

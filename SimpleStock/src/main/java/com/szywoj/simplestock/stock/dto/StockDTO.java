@@ -1,4 +1,9 @@
 package com.szywoj.simplestock.stock.dto;
 
-public record StockDTO() {
-}
+import lombok.Builder;
+
+@Builder
+public record StockDTO(
+        String name,
+        int quantity
+) {}
