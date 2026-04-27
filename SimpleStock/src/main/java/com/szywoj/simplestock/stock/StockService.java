@@ -5,7 +5,10 @@ import com.szywoj.simplestock.stock.dto.StockListResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -23,13 +26,35 @@ public class StockService {
     }
 
     public void setStocks(List<StockDTO> dtos) {
-        repository.deleteAll();
 
-        List<Stock> stocks = dtos.stream()
-                .map(this::mapToEntity)
-                .toList();
+        List<Stock> existing = repository.findAll();
 
-        repository.saveAll(stocks);
+        Map<String, Integer> requestMap = dtos.stream()
+                .collect(Collectors.toMap(StockDTO::name, StockDTO::quantity));
+
+        List<Stock> result = new ArrayList<>();
+
+        for (Stock stock : existing) {
+            Integer newQty = requestMap.get(stock.getName());
+
+            if (newQty != null) {
+                stock.setQuantity(newQty);
+                requestMap.remove(stock.getName());
+            } else {
+                stock.setQuantity(0);
+            }
+
+            result.add(stock);
+        }
+
+        for (Map.Entry<String, Integer> entry : requestMap.entrySet()) {
+            Stock s = new Stock();
+            s.setName(entry.getKey());
+            s.setQuantity(entry.getValue());
+            result.add(s);
+        }
+
+        repository.saveAll(result);
     }
 
     private StockDTO mapToDTO(Stock stock) {

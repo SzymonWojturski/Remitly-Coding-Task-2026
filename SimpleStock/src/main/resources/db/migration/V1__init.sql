@@ -14,7 +14,7 @@ CREATE TABLE wallet_stocks (
     quantity BIGINT NOT NULL CHECK (quantity >= 0),
     PRIMARY KEY (wallet_id, stock_name),
     FOREIGN KEY (wallet_id) REFERENCES wallets(id) ON DELETE CASCADE,
-    FOREIGN KEY (stock_name) REFERENCES stocks(name) ON DELETE CASCADE
+    FOREIGN KEY (stock_name) REFERENCES stocks(name) ON DELETE RESTRICT
 );
 
 CREATE TABLE audit_log (

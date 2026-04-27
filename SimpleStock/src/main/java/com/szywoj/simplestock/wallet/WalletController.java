@@ -1,34 +1,35 @@
 package com.szywoj.simplestock.wallet;
 
-import org.apache.commons.lang3.NotImplementedException;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.szywoj.simplestock.wallet.dto.OperationRequest;
+import com.szywoj.simplestock.wallet.dto.WalletResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequiredArgsConstructor
 public class WalletController {
 
-    @PostMapping("/wallets/{wallet_id}/stocks/{stock_name}")
-    public String buyAndSell(
-            @PathVariable("wallet_id") String walletId,
-            @PathVariable("stock_name") String stockName
+    private final WalletService service;
+
+    @PostMapping("/wallets/{walletId}/stocks/{stockName}")
+    public void operate(
+            @PathVariable String walletId,
+            @PathVariable String stockName,
+            @RequestBody OperationRequest request
     ) {
-        throw new UnsupportedOperationException("Endpoint not implemented");
+        service.operate(walletId, stockName, request.type());
     }
 
-    @GetMapping("/wallets/{wallet_id}/stocks/{stock_name}")
-    public String walletStockState(
-            @PathVariable("wallet_id") String walletId,
-            @PathVariable("stock_name") String stockName
-    ) {
-        throw new UnsupportedOperationException("Endpoint not implemented");
+    @GetMapping("/wallets/{walletId}")
+    public WalletResponse getWallet(@PathVariable String walletId) {
+        return service.getWallet(walletId);
     }
 
-    @GetMapping("/wallets/{wallet_id}")
-    public String walletState(
-            @PathVariable("wallet_id") String walletId
-            ) {
-        throw new UnsupportedOperationException("Endpoint not implemented");
+    @GetMapping("/wallets/{walletId}/stocks/{stockName}")
+    public long getStock(
+            @PathVariable String walletId,
+            @PathVariable String stockName
+    ) {
+        return service.getStockQuantity(walletId, stockName);
     }
 }
