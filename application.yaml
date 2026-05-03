@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://db:5432/simplestock
+    username: ${DB_USER:simplestock}
+    password: ${DB_PASS:simplestock}
+  jpa:
+    hibernate:
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:update}
